@@ -1,0 +1,109 @@
+$max: 100%;
+
+@media (max-width: 8000px) {
+	.item {
+		width: $max;
+		max-width: 400px;
+		height: 90px;
+
+		& input {
+			height: 50px;
+			width: $max;
+			max-width: 270px;
+			font-size: 19px;
+		}
+
+		& button {
+			height: 55px;
+			width: 55px;
+		}
+	}
+}
+
+@media (max-width: 420px) {
+	.item {
+		width: $max;
+		max-width: 400px;
+		height: 90px;
+
+		& input {
+			height: 45px;
+			width: $max;
+			font-size: 17px;
+			max-width: 230px;
+		}
+
+		& button {
+			height: 55px;
+			width: 55px;
+		}
+	}
+}
+
+@media (max-width: 300px) {
+	.item {
+		width: $max;
+		max-width: 250px;
+		height: 70px;
+
+		& input {
+			height: 40px;
+			width: $max;
+			max-width: 150px;
+			font-size: 14px;
+		}
+
+		& button {
+			height: 45px;
+			width: 45px;
+		}
+	}
+}
+
+.item {
+	position: relative;
+	left: -300px;
+	opacity: 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	transition: .25s all ease-in-out;
+	border-radius: 10px;
+	border: none;
+	margin: 15px auto;
+	background-color: #90c6ab;
+	box-shadow: rgba(60, 64, 67, 0.3) 0px .5px 2px 0px, rgba(60, 64, 67, 0.15) 0px .5px 3px 1px;
+
+	& input {
+		font-weight: 400;
+		border: none;
+		outline: none;
+		background-color: rgb(217, 255, 235);
+		text-align: center;
+		border-radius: 5px;
+		color: #49866d;
+		transition: .1s all ease-in-out;
+		padding: 0 5px;
+
+		&:focus {
+			outline: 3px solid #49866d;
+		}
+	}
+
+	& button {
+		background-color: transparent;
+		border: none;
+		border-radius: 3px;
+		cursor: pointer;
+		transition: 0.1s all ease-in-out;
+
+		& .delete {
+			width: $max;
+			height: $max;
+		}
+
+		&:hover {
+			transform: scale(0.95);
+		}
+	}
+}

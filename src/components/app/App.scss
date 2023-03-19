@@ -1,0 +1,60 @@
+$center: center;
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+.shake {
+	-webkit-animation: 1.2s ease-in-out 0s normal none infinite running trambling-animation;
+	-moz-animation: 1.2s ease-in-out 0s normal none infinite running trambling-animation;
+	-o-animation: 1.2s ease-in-out 0s normal none infinite running trambling-animation;
+	animation: 1.2s ease-in-out 0s normal none infinite running trambling-animation;
+}
+
+@keyframes trambling-animation {
+
+	0%,
+	50%,
+	100% {
+		transform: rotate(0deg);
+		-webkit-transform: rotate(0deg);
+		-moz-transform: rotate(0deg);
+		-o-transform: rotate(0deg);
+		-ms-transform: rotate(0deg);
+	}
+
+	10%,
+	30% {
+		transform: rotate(-2deg);
+		-webkit-transform: rotate(-2deg);
+		-moz-transform: rotate(-2deg);
+		-o-transform: rotate(-2deg);
+		-ms-transform: rotate(-2deg);
+	}
+
+	20%,
+	40% {
+		transform: rotate(2deg);
+		-webkit-transform: rotate(2deg);
+		-moz-transform: rotate(2deg);
+		-o-transform: rotate(2deg);
+		-ms-transform: rotate(2deg);
+	}
+}
+
+body {
+	width: 100%;
+	min-height: 100%;
+
+	& .wrapper {
+		transition: 0.3s all ease-in-out;
+		padding: 0 15px;
+		background: transparent;
+		display: flex;
+		flex-direction: column;
+		justify-content: $center;
+		align-items: $center;
+	}
+}
