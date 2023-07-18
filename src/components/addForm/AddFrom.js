@@ -1,58 +1,57 @@
-import { Component } from 'react';
+//Component
+import { Component } from "react";
 
-import './addForm.scss';
+//Icon
+import add from "../../icons/add.png";
 
-import add from '../../icons/add.png';
+//Styles
+import "./addForm.scss";
 
 class AddForm extends Component {
-	state = {
-		name: ''
-	};
+  state = {
+    name: "",
+  };
 
-	onValueChange = (e) => {
-		this.setState({
-			[e.target.name]: e.target.value
-		});
-	};
+  onValueChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
 
-	onSubmitAdd = (e) => {
-		e.preventDefault();
-		const length = document.querySelector('#add').value.length;
+  onSubmitAdd = (e) => {
+    e.preventDefault();
 
-		this.props.onAddItem(this.state.name);
+    const length = this.state.name.length;
 
-		length <= 3 ?
-			this.setState({
-				name: this.state.name
-			}) :
-			this.setState({
-				name: ''
-			});
-	};
+    this.props.onAddItem(this.state.name, e.target);
 
+    length <= 3
+      ? this.setState({
+          name: this.state.name,
+        })
+      : this.setState({
+          name: "",
+        });
+  };
 
-	render() {
-		return (
-			<form
-				className="add"
-				onSubmit={this.onSubmitAdd}>
-				<input
-					maxLength={20}
-					id="add"
-					type="text"
-					placeholder="Enter name..."
-					value={this.state.name}
-					name='name'
-					onChange={this.onValueChange} />
-				<button>
-					<img
-						className='add-icon'
-						src={add}
-						alt="add" />
-				</button>
-			</form>
-		);
-	};
-};
+  render() {
+    return (
+      <form className="add" onSubmit={(e) => this.onSubmitAdd(e)}>
+        <input
+          maxLength={20}
+          id="add"
+          type="text"
+          placeholder="Enter name..."
+          value={this.state.name}
+          name="name"
+          onChange={this.onValueChange}
+        />
+        <button type="submit">
+          <img className="add-icon" src={add} alt="add" />
+        </button>
+      </form>
+    );
+  }
+}
 
 export default AddForm;

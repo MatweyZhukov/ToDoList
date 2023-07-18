@@ -1,53 +1,72 @@
-import Modal from '../modal/Modal';
+//Global
+import { Component } from "react";
 
-import question from '../../icons/question.png';
+//Component
+import Modal from "../modal/Modal";
 
-import './appHeader.scss'
+//Icon
+import question from "../../icons/question.png";
 
-const AppHeader = ({ onToggleTheme, data, onDeleteItems }) => {
-	const onOpenModal = () => {
-		document.querySelector('.modal').style.cssText = `
-			opacity: 1; 
-			pointer-events: all;
-		`;
-		document.querySelector('.modal__content').style.cssText = `
-			transform: scale(1);
-		`;
-		document.body.style.cssText = `
-			overflow-y: hidden;
-		`;
+//Styles
+import "./appHeader.scss";
 
-		document.querySelectorAll('.item').forEach(item => {
-			item.style.cssText = `
-				position: unset;
-				left: 0;
-				opacity: 1;
-			`;
-		});
-	};
+class AppHeader extends Component {
+  constructor(props) {
+    super(props);
 
-	return (
-		<>
-			<div className='header'>
-				<h1 className="text-header">Item List</h1>
-				<button
-					onClick={onOpenModal}
-					className="settings">
-					<img data-question
-						src={question}
-						alt="settings" />
-				</button>
-				<Modal onToggleTheme={onToggleTheme} />
-			</div>
-			{
-				data.length > 1 ?
-					<button
-						onClick={onDeleteItems}
-						className="remove-all">Remove all</button>
-					: null
-			}
-		</>
-	);
-};
+    this.state = {
+      modalStatus: false,
+    };
+  }
+
+  modalClassName = "modal";
+  modalContentClassName = "modal__content";
+
+  onChangeModalStatus = () => {
+    this.setState({
+      modalStatus: !this.state.modalStatus,
+    });
+  };
+
+  render() {
+    if (this.state.modalStatus) {
+      this.modalClassName = "modal modal__opeend";
+      this.modalContentClassName += "modal_content modal__content__opened";
+      document.body.style.overflowY = "hidden";
+      document.querySelectorAll(".item").forEach((item) => {
+        item.style.position = "unset";
+      });
+    } else {
+      this.modalClassName = "modal modal__closed";
+      this.modalContentClassName = "modal__content modal__content__closed";
+      document.body.style.overflowY = "auto";
+      document.querySelectorAll(".item").forEach((item) => {
+        item.style.position = "relative";
+      });
+    }
+
+    return (
+      <>
+        <div className="header">
+          <h1 className="text-header">Item List</h1>
+          <button onClick={this.onChangeModalStatus} className="settings">
+            <img data-question src={question} alt="settings" />
+          </button>
+          <Modal
+            modalClassName={this.modalClassName}
+            modalContentClassName={this.modalContentClassName}
+            onChangeModalStatus={this.onChangeModalStatus}
+            onToggleTheme={this.props.onToggleTheme}
+          />
+        </div>
+        {this.props.data.length > 1 ? (
+          <button onClick={this.props.onDeleteItems} className="remove-all">
+            Remove all
+          </button>
+        ) : null}
+      </>
+    );
+  }
+}
 
 export default AppHeader;
