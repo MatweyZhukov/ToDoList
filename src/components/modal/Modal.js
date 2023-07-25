@@ -25,32 +25,26 @@ class Modal extends Component {
 
   switchTheme = () => {
     this.setState(({ theme }) => {
-      if (theme === "green") {
-        return {
-          theme: "black",
-        };
-      } else {
-        return {
-          theme: "green",
-        };
-      }
+      return {
+        theme: theme === "green" ? "black" : "green",
+      };
     });
   };
 
   render() {
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") this.onCloseModal();
-    });
-    window.addEventListener("click", (e) => {
-      if (e.target === document.querySelector(".modal")) this.onCloseModal();
-    });
-
     return (
       <ThemeProvider
         theme={this.state.theme === "green" ? greenTheme : darkTheme}
       >
         <GlobalStyles />
-        <div className={this.props.modalClassName}>
+        <div
+          onClick={(e) => {
+            if (e.target === document.querySelector(".modal")) {
+              this.props.onChangeModalStatus();
+            }
+          }}
+          className={this.props.modalClassName}
+        >
           <div className={this.props.modalContentClassName}>
             <div className="close">
               <button onClick={this.props.onChangeModalStatus}>

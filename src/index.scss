@@ -17,6 +17,20 @@ html {
   justify-content: center;
 }
 
+body::-webkit-scrollbar {
+  width: 10px; /* ширина всей полосы прокрутки */
+}
+
+body::-webkit-scrollbar-track {
+  background: #a4ffd2; /* цвет зоны отслеживания */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #282828; /* цвет бегунка */
+  border-radius: 20px; /* округлось бегунка */
+  border: 1px solid #a4ffd2; /* отступ вокруг бегунка */
+}
+
 #root {
   width: 100%;
 }

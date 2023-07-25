@@ -14,38 +14,33 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: JSON.parse(localStorage.getItem("data")) || [],
+      todoList: JSON.parse(localStorage.getItem("todoList")) || [],
     };
   }
 
   componentDidMount() {
     document.querySelectorAll(".item").forEach((item) => {
       item.style.cssText = `
-			left: 0;
-			opacity: 1;
-			position: static;
-		`;
+        left: 0;
+        opacity: 1;
+        position: static;
+      `;
     });
   }
 
   componentDidUpdate() {
-    localStorage.setItem("data", JSON.stringify(this.state.data));
+    localStorage.setItem("todoList", JSON.stringify(this.state.todoList));
   }
 
   AddItem = (name, target) => {
     const id = uuid();
 
-    const newItem = {
-      name,
-      id,
-    };
-
-    this.setState(({ data }) => {
-      let newArr = [...data, newItem];
+    this.setState(({ todoList }) => {
+      let newArr = [...todoList, { name, id }];
 
       if (name !== "" && name.length > 3 && name.length <= 20) {
         return {
-          data: newArr,
+          todoList: newArr,
         };
       }
 
@@ -61,9 +56,9 @@ class App extends Component {
     setTimeout(() => {
       document.querySelectorAll(".item").forEach((item) => {
         item.style.cssText = `
-				opacity: 1;
-				left: 0;
-			`;
+          opacity: 1;
+          left: 0;
+        `;
       });
     });
   };
@@ -75,9 +70,9 @@ class App extends Component {
 		`;
 
     setTimeout(() => {
-      this.setState(({ data }) => {
+      this.setState(({ todoList }) => {
         return {
-          data: data.filter((item) => item.id !== id),
+          todoList: todoList.filter((item) => item.id !== id),
         };
       });
     }, 250);
@@ -86,23 +81,23 @@ class App extends Component {
   DeleteItems = () => {
     document.querySelectorAll(".item").forEach((item) => {
       item.style.cssText = `
-			opacity: 0;
-			left: 300px;
-		`;
+        opacity: 0;
+        left: 300px;
+      `;
     });
 
     setTimeout(() => {
       this.setState(() => {
         return {
-          data: [],
+          todoList: [],
         };
       });
     }, 250);
   };
 
   ChangeName = (id, name) => {
-    this.setState(({ data }) => ({
-      data: data.map((item) => {
+    this.setState(({ todoList }) => ({
+      todoList: todoList.map((item) => {
         if (name.length > 3) {
           if (item.id === id) {
             return { ...item, name: name };
@@ -116,10 +111,13 @@ class App extends Component {
   render() {
     return (
       <main className="wrapper">
-        <AppHeader data={this.state.data} onDeleteItems={this.DeleteItems} />
+        <AppHeader
+          todoList={this.state.todoList}
+          onDeleteItems={this.DeleteItems}
+        />
 
         <ItemList
-          data={this.state.data}
+          todoList={this.state.todoList}
           onDeleteItem={this.DeleteItem}
           onChangeName={this.ChangeName}
         />

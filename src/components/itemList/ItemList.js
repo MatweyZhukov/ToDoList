@@ -4,11 +4,11 @@ import ItemSingle from "../itemSingle/ItemSingle";
 //Styles
 import "./itemList.scss";
 
-const ItemList = ({ data, onDeleteItem, onChangeName }) => {
-  if (data.length > 0) {
+const ItemList = ({ todoList, onDeleteItem, onChangeName }) => {
+  if (todoList.length > 0) {
     return (
       <>
-        {data.map((item) => {
+        {todoList.map((item) => {
           const { id, ...itemProps } = item;
 
           return (

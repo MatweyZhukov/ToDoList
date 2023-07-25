@@ -41,7 +41,9 @@ class AppHeader extends Component {
       this.modalContentClassName = "modal__content modal__content__closed";
       document.body.style.overflowY = "auto";
       document.querySelectorAll(".item").forEach((item) => {
-        item.style.position = "relative";
+        setTimeout(() => {
+          item.style.position = "relative";
+        }, 300);
       });
     }
 
@@ -59,7 +61,7 @@ class AppHeader extends Component {
             onToggleTheme={this.props.onToggleTheme}
           />
         </div>
-        {this.props.data.length > 1 ? (
+        {this.props.todoList.length > 1 ? (
           <button onClick={this.props.onDeleteItems} className="remove-all">
             Remove all
           </button>
